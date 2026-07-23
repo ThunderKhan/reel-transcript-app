@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>reel-transcript</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="head">
+    <span class="dot"></span>
+    <h1>reel<span class="slash">/</span>transcript</h1>
+    <span class="tag">local pipeline · download → extract → transcribe</span>
+  </header>
+
+  <form id="job-form" class="console">
+    <label class="prompt-line" for="url">
+      <span class="prompt">$</span>
+      <input type="text" id="url" name="url" placeholder="https://www.instagram.com/reel/..." autocomplete="off" required>
+    </label>
+
+    <div class="row">
+      <label class="model-label" for="model">model</label>
+      <select id="model" name="model">
+        <option value="tiny">tiny · fastest</option>
+        <option value="base" selected>base · balanced</option>
+        <option value="small">small · sharper</option>
+        <option value="medium">medium · accurate, slow</option>
+      </select>
+      <button type="submit" id="run-btn">run</button>
+    </div>
+  </form>
+
+  <div class="pipeline" id="pipeline">
+    <div class="stage" data-stage="downloading">
+      <div class="node"></div>
+      <span>download</span>
+    </div>
+    <div class="wire"></div>
+    <div class="stage" data-stage="extracting audio">
+      <div class="node"></div>
+      <span>audio</span>
+    </div>
+    <div class="wire"></div>
+    <div class="stage" data-stage="transcribing">
+      <div class="node"></div>
+      <span>transcribe</span>
+    </div>
+  </div>
+
+  <div class="terminal" id="terminal">
+    <div class="terminal-bar">
+      <span>output</span>
+      <button id="copy-btn" type="button" title="Copy transcript">copy</button>
+    </div>
+    <pre id="output">waiting for input<span class="cursor">▌</span></pre>
+  </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
